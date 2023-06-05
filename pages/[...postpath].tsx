@@ -1,3 +1,41 @@
+
+// ... previous code ...
+
+const Post: React.FC<PostProps> = (props) => {
+  const { post, host, path } = props;
+
+  // to remove tags from excerpt
+  const removeTags = (str: string) => {
+    if (str === null || str === '') return '';
+    else str = str.toString();
+    return str.replace(/(<([^>]+)>)/gi, '').replace(/\[[^\]]*\]/, '');
+  };
+
+  const postLink = `https://${host}/${path}`; // Constructing the post link
+
+  return (
+    <>
+      <Head>
+        {/* ... existing meta tags ... */}
+        <link rel="canonical" href={postLink} /> {/* Adding the canonical link */}
+      </Head>
+      <div className="post-container">
+        {/* ... existing post content ... */}
+        <p>
+          {/* Adding the post link as an anchor tag */}
+          Read more on <a href={postLink}>{post.title}</a>
+        </p>
+      </div>
+    </>
+  );
+};
+
+// ... remaining code ...
+
+
+
+
+
 import React from 'react';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
